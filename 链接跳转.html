@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二维码扫码</title>
+    <script src="./jQ.js"></script>
+</head>
+<body>
+ <div style="position:relative">
+        <img class="wechatImage" src=""  style="position:absolute;left:0;margin-top:180px;z-index:3;margin-left: 80px;height: 800px;">
+        <img src="./0524'.jpg" style="position:absolute;left: -6px;top: -9px;z-index:1;width: 974px;">
+    </div>
+</body>
+<script>
+ $(document).ready(function(){
+        let timer = null
+        let startTime = ''
+        let endTime = ''
+        const label = document.querySelector('.wechatImage')
+      label.addEventListener('touchstart', function () {
+  startTime = +new Date()
+  timer = setTimeout(function () {
+    var data = {"eventType": "wechat"}
+    $.ajax({
+          type: 'post',
+          url: 'https://api.yjjxsk8.com/api/galamotuo/conversion',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify(data),
+          success: function(res) {
+          },
+          error: function(err){
+          },
+          complete : function(XMLHttpRequest,status){
+          }
+        })
+
+  }, 600)
+})
+    label.addEventListener('touchmove', e => {
+        clearTimeout(timer)
+        timer = 0
+    })
+    label.addEventListener('touchend', e => {
+        clearTimeout(timer)
+        timer = 0
+    })
+
+ });
+</script>
+</html>
